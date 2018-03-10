@@ -1,6 +1,6 @@
 # Sistem Informasi OSR
 
-![](http://ideafromtheweb.com/wp-content/uploads/2016/09/asp.jpg)
+![](http://takeupskills.com/wp-content/uploads/2017/02/asp.net-MVC.png)
 
 ### Feature
 1. 
