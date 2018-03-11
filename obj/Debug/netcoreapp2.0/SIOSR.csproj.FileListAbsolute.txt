@@ -8,3 +8,13 @@ C:\xampp\htdocs\SIOSR\obj\Debug\netcoreapp2.0\SIOSR.AssemblyInfoInputs.cache
 C:\xampp\htdocs\SIOSR\obj\Debug\netcoreapp2.0\SIOSR.AssemblyInfo.cs
 C:\xampp\htdocs\SIOSR\obj\Debug\netcoreapp2.0\SIOSR.dll
 C:\xampp\htdocs\SIOSR\obj\Debug\netcoreapp2.0\SIOSR.pdb
+C:\Users\ronald\Documents\Kuliah\Software Project Management\SI-OSR\obj\Debug\netcoreapp2.0\SIOSR.csproj.CoreCompileInputs.cache
+C:\Users\ronald\Documents\Kuliah\Software Project Management\SI-OSR\obj\Debug\netcoreapp2.0\SIOSR.AssemblyInfoInputs.cache
+C:\Users\ronald\Documents\Kuliah\Software Project Management\SI-OSR\obj\Debug\netcoreapp2.0\SIOSR.AssemblyInfo.cs
+C:\Users\ronald\Documents\Kuliah\Software Project Management\SI-OSR\bin\Debug\netcoreapp2.0\SIOSR.deps.json
+C:\Users\ronald\Documents\Kuliah\Software Project Management\SI-OSR\bin\Debug\netcoreapp2.0\SIOSR.runtimeconfig.json
+C:\Users\ronald\Documents\Kuliah\Software Project Management\SI-OSR\bin\Debug\netcoreapp2.0\SIOSR.runtimeconfig.dev.json
+C:\Users\ronald\Documents\Kuliah\Software Project Management\SI-OSR\bin\Debug\netcoreapp2.0\SIOSR.dll
+C:\Users\ronald\Documents\Kuliah\Software Project Management\SI-OSR\bin\Debug\netcoreapp2.0\SIOSR.pdb
+C:\Users\ronald\Documents\Kuliah\Software Project Management\SI-OSR\obj\Debug\netcoreapp2.0\SIOSR.dll
+C:\Users\ronald\Documents\Kuliah\Software Project Management\SI-OSR\obj\Debug\netcoreapp2.0\SIOSR.pdb
