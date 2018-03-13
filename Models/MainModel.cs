@@ -11,6 +11,9 @@ namespace EFGetStarted.AspNetCore.NewDb.Models {
 
         public DbSet<PenggalanganDana> PDanas { get; set; }
         public DbSet<Lomba> Lombas { get; set; }
+        public DbSet<DaftarAbsnsi> Absensi {get;set;}
+
+        
     }
 
     public class PenggalanganDana {
@@ -22,6 +25,12 @@ namespace EFGetStarted.AspNetCore.NewDb.Models {
     public class Lomba {
         public int id { get; set; }
         public string name { get; set; }
+        public string description { get; set; }
+    }
+
+    public class DaftarAbsnsi{
+        public int id { get; set; }
+        public string name { get;set; }
         public string description { get; set; }
     }
 }
