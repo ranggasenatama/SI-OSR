@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using EFGetStarted.AspNetCore.NewDb.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using EFGetStarted.AspNetCore.NewDb.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace SIOSR {
     
@@ -20,27 +16,26 @@ namespace SIOSR {
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services) {
-            services.AddMvc();
-            services.AddDbContext<MainContext>(options => options.UseNpgsql(Configuration.GetConnectionString ("pg_siosr")));
+        public void ConfigureServices (IServiceCollection services) {
+            services.AddMvc ();
+            services.AddDbContext<MainContext> (
+                options => options.UseNpgsql (Configuration.GetConnectionString ("pg_siosr")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env) {
-            if (env.IsDevelopment()) {
-                app.UseDeveloperExceptionPage();
-            }
-            else {
-                app.UseExceptionHandler("/Home/Error");
-            }
+        public void Configure (IApplicationBuilder app, IHostingEnvironment env) {
+            if (env.IsDevelopment ())
+                app.UseDeveloperExceptionPage ();
+            else
+                app.UseExceptionHandler ("/Home/Error");
 
-            app.UseStaticFiles();
+            app.UseStaticFiles ();
 
             app.UseMvc(routes => {
-                routes.MapRoute(
+                routes.MapRoute (
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute(
+                routes.MapRoute (
                     name: "PenggalanganDana",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
