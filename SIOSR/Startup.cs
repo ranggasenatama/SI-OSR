@@ -29,12 +29,12 @@ namespace SIOSR {
             else
                 app.UseExceptionHandler ("/Home/Error");
 
-            app.UseStaticFiles ();
+            app.UseStaticFiles ("/static");
 
             app.UseMvc (routes => {
                 routes.MapRoute (
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
 
                 // prefix is optional, by default = IlaroAdmin
 //                AdminInitialise.RegisterRoutes(RouteTable.Routes, prefix: "Admin");
