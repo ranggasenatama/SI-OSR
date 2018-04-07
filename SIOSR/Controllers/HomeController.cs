@@ -10,9 +10,9 @@ namespace SIOSR.Controllers {
             return View ();
         }
 
-        public IActionResult PenggalanganDana () {
-            return View ();
-        }
+//        public IActionResult PenggalanganDana () {
+//            return View ();
+//        }
 
         public IActionResult About () {
             ViewData["Message"] = typeof (Controller).Assembly.GetName ().Version;

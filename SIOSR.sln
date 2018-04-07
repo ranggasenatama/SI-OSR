@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIOSR", "SIOSR.csproj", "{E1AD3E62-EA2E-4D98-8170-9AAEF459C0E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIOSR", "SIOSR/SIOSR.csproj", "{E1AD3E62-EA2E-4D98-8170-9AAEF459C0E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
