@@ -11,9 +11,10 @@ using System;
 namespace SIOSR.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180408153233_AddAllAppModels")]
+    partial class AddAllAppModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -202,7 +203,7 @@ namespace SIOSR.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Donasi");
+                    b.ToTable("Donasis");
                 });
 
             modelBuilder.Entity("SIOSR.Models.App.Lomba", b =>
@@ -316,7 +317,7 @@ namespace SIOSR.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PenggalanganDana");
+                    b.ToTable("PenggalanganDanas");
                 });
 
             modelBuilder.Entity("SIOSR.Models.App.Staff", b =>

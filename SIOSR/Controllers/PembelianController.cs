@@ -1,28 +1,31 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SIOSR.Data;
 using SIOSR.Models.App;
 
 namespace SIOSR.Controllers
 {
-    public class PenggalanganDanaController : Controller
+    public class PembelianController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public PenggalanganDanaController(ApplicationDbContext context)
+        public PembelianController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: PenggalanganDana
+        // GET: Pembelian
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PenggalanganDana.ToListAsync());
+            return View(await _context.Pembelian.ToListAsync());
         }
 
-        // GET: PenggalanganDana/Details/5
+        // GET: Pembelian/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -30,39 +33,39 @@ namespace SIOSR.Controllers
                 return NotFound();
             }
 
-            var penggalanganDana = await _context.PenggalanganDana
+            var pembelian = await _context.Pembelian
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (penggalanganDana == null)
+            if (pembelian == null)
             {
                 return NotFound();
             }
 
-            return View(penggalanganDana);
+            return View(pembelian);
         }
 
-        // GET: PenggalanganDana/Create
+        // GET: Pembelian/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: PenggalanganDana/Create
+        // POST: Pembelian/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Total,Status,Image")] PenggalanganDana penggalanganDana)
+        public async Task<IActionResult> Create([Bind("Id,Title,Price,Name,Phone,Email,Address,Amount,AccountNumber,Shipping,Status")] Pembelian pembelian)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(penggalanganDana);
+                _context.Add(pembelian);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(penggalanganDana);
+            return View(pembelian);
         }
 
-        // GET: PenggalanganDana/Edit/5
+        // GET: Pembelian/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -70,22 +73,22 @@ namespace SIOSR.Controllers
                 return NotFound();
             }
 
-            var penggalanganDana = await _context.PenggalanganDana.SingleOrDefaultAsync(m => m.Id == id);
-            if (penggalanganDana == null)
+            var pembelian = await _context.Pembelian.SingleOrDefaultAsync(m => m.Id == id);
+            if (pembelian == null)
             {
                 return NotFound();
             }
-            return View(penggalanganDana);
+            return View(pembelian);
         }
 
-        // POST: PenggalanganDana/Edit/5
+        // POST: Pembelian/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Total,Status,Image")] PenggalanganDana penggalanganDana)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Price,Name,Phone,Email,Address,Amount,AccountNumber,Shipping,Status")] Pembelian pembelian)
         {
-            if (id != penggalanganDana.Id)
+            if (id != pembelian.Id)
             {
                 return NotFound();
             }
@@ -94,12 +97,12 @@ namespace SIOSR.Controllers
             {
                 try
                 {
-                    _context.Update(penggalanganDana);
+                    _context.Update(pembelian);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PenggalanganDanaExists(penggalanganDana.Id))
+                    if (!PembelianExists(pembelian.Id))
                     {
                         return NotFound();
                     }
@@ -110,10 +113,10 @@ namespace SIOSR.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(penggalanganDana);
+            return View(pembelian);
         }
 
-        // GET: PenggalanganDana/Delete/5
+        // GET: Pembelian/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -121,30 +124,30 @@ namespace SIOSR.Controllers
                 return NotFound();
             }
 
-            var penggalanganDana = await _context.PenggalanganDana
+            var pembelian = await _context.Pembelian
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (penggalanganDana == null)
+            if (pembelian == null)
             {
                 return NotFound();
             }
 
-            return View(penggalanganDana);
+            return View(pembelian);
         }
 
-        // POST: PenggalanganDana/Delete/5
+        // POST: Pembelian/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var penggalanganDana = await _context.PenggalanganDana.SingleOrDefaultAsync(m => m.Id == id);
-            _context.PenggalanganDana.Remove(penggalanganDana);
+            var pembelian = await _context.Pembelian.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Pembelian.Remove(pembelian);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PenggalanganDanaExists(int id)
+        private bool PembelianExists(int id)
         {
-            return _context.PenggalanganDana.Any(e => e.Id == id);
+            return _context.Pembelian.Any(e => e.Id == id);
         }
     }
 }
