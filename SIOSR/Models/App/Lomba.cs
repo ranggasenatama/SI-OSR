@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SIOSR.Models.PenggalanganDana {
+namespace SIOSR.Models.App {
 
-    public class PenggalanganDana {
+    public class Lomba {
 
         public int Id { get; set; }
 
@@ -15,12 +15,9 @@ namespace SIOSR.Models.PenggalanganDana {
         public string Description { get; set; }
 
         [Required]
-        public int Total { get; set; }
-
-        [Required]
         public string Status { get; set; }
 
         [Required]
-        public int Image { get; set; }
+        public string Image { get; set; }
     }
 }

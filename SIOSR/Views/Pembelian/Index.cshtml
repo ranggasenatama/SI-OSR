@@ -1,4 +1,4 @@
-@model IEnumerable<SIOSR.Models.App.Donasi>
+@model IEnumerable<SIOSR.Models.App.Pembelian>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,19 +16,28 @@
                     @Html.DisplayNameFor(model => model.Title)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Phone)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.AccountNumber)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bank)
+                    @Html.DisplayNameFor(model => model.Shipping)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Status)
@@ -43,19 +52,28 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Phone)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AccountNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Bank)
+                @Html.DisplayFor(modelItem => item.Shipping)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)

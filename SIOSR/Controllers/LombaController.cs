@@ -1,28 +1,31 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SIOSR.Data;
 using SIOSR.Models.App;
 
 namespace SIOSR.Controllers
 {
-    public class PenggalanganDanaController : Controller
+    public class LombaController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public PenggalanganDanaController(ApplicationDbContext context)
+        public LombaController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: PenggalanganDana
+        // GET: Lomba
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PenggalanganDana.ToListAsync());
+            return View(await _context.Lomba.ToListAsync());
         }
 
-        // GET: PenggalanganDana/Details/5
+        // GET: Lomba/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -30,39 +33,39 @@ namespace SIOSR.Controllers
                 return NotFound();
             }
 
-            var penggalanganDana = await _context.PenggalanganDana
+            var lomba = await _context.Lomba
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (penggalanganDana == null)
+            if (lomba == null)
             {
                 return NotFound();
             }
 
-            return View(penggalanganDana);
+            return View(lomba);
         }
 
-        // GET: PenggalanganDana/Create
+        // GET: Lomba/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: PenggalanganDana/Create
+        // POST: Lomba/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Total,Status,Image")] PenggalanganDana penggalanganDana)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,Status,Image")] Lomba lomba)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(penggalanganDana);
+                _context.Add(lomba);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(penggalanganDana);
+            return View(lomba);
         }
 
-        // GET: PenggalanganDana/Edit/5
+        // GET: Lomba/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -70,22 +73,22 @@ namespace SIOSR.Controllers
                 return NotFound();
             }
 
-            var penggalanganDana = await _context.PenggalanganDana.SingleOrDefaultAsync(m => m.Id == id);
-            if (penggalanganDana == null)
+            var lomba = await _context.Lomba.SingleOrDefaultAsync(m => m.Id == id);
+            if (lomba == null)
             {
                 return NotFound();
             }
-            return View(penggalanganDana);
+            return View(lomba);
         }
 
-        // POST: PenggalanganDana/Edit/5
+        // POST: Lomba/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Total,Status,Image")] PenggalanganDana penggalanganDana)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Status,Image")] Lomba lomba)
         {
-            if (id != penggalanganDana.Id)
+            if (id != lomba.Id)
             {
                 return NotFound();
             }
@@ -94,12 +97,12 @@ namespace SIOSR.Controllers
             {
                 try
                 {
-                    _context.Update(penggalanganDana);
+                    _context.Update(lomba);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PenggalanganDanaExists(penggalanganDana.Id))
+                    if (!LombaExists(lomba.Id))
                     {
                         return NotFound();
                     }
@@ -110,10 +113,10 @@ namespace SIOSR.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(penggalanganDana);
+            return View(lomba);
         }
 
-        // GET: PenggalanganDana/Delete/5
+        // GET: Lomba/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -121,30 +124,30 @@ namespace SIOSR.Controllers
                 return NotFound();
             }
 
-            var penggalanganDana = await _context.PenggalanganDana
+            var lomba = await _context.Lomba
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (penggalanganDana == null)
+            if (lomba == null)
             {
                 return NotFound();
             }
 
-            return View(penggalanganDana);
+            return View(lomba);
         }
 
-        // POST: PenggalanganDana/Delete/5
+        // POST: Lomba/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var penggalanganDana = await _context.PenggalanganDana.SingleOrDefaultAsync(m => m.Id == id);
-            _context.PenggalanganDana.Remove(penggalanganDana);
+            var lomba = await _context.Lomba.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Lomba.Remove(lomba);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PenggalanganDanaExists(int id)
+        private bool LombaExists(int id)
         {
-            return _context.PenggalanganDana.Any(e => e.Id == id);
+            return _context.Lomba.Any(e => e.Id == id);
         }
     }
 }

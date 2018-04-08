@@ -1,4 +1,4 @@
-@model SIOSR.Models.App.PenggalanganDana
+@model SIOSR.Models.App.Materi
 
 @{
     ViewData["Title"] = "Details";
@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>PenggalanganDana</h4>
+    <h4>Materi</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -21,12 +21,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Total)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Total)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Status)

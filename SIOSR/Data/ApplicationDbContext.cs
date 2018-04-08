@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SIOSR.Models;
-using SIOSR.Models.PenggalanganDana;
+using SIOSR.Models.App;
 
 namespace SIOSR.Data
 {
@@ -12,8 +12,15 @@ namespace SIOSR.Data
         {
         }
 
-        public DbSet<PenggalanganDana> PenggalanganDanas { get; set; }
-        public DbSet<Donasi> Donasis { get; set; }
+        public DbSet<PenggalanganDana> PenggalanganDana { get; set; }
+        public DbSet<Donasi> Donasi { get; set; }
+        public DbSet<Anak> Anak { get; set; }
+        public DbSet<Absensi> Absensi { get; set; }
+        public DbSet<Materi> Materi { get; set; }
+        public DbSet<Lomba> Lomba { get; set; }
+        public DbSet<Umkm> Umkm { get; set; }
+        public DbSet<Pembelian> Pembelian { get; set; }
+        public DbSet<Staff> Staff { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

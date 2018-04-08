@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SIOSR.Data;
-using SIOSR.Models.PenggalanganDana;
+using SIOSR.Models.App;
 
 namespace SIOSR.Controllers
 {
@@ -22,7 +19,7 @@ namespace SIOSR.Controllers
         // GET: Donasi
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Donasis.ToListAsync());
+            return View(await _context.Donasi.ToListAsync());
         }
 
         // GET: Donasi/Details/5
@@ -33,7 +30,7 @@ namespace SIOSR.Controllers
                 return NotFound();
             }
 
-            var donasi = await _context.Donasis
+            var donasi = await _context.Donasi
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (donasi == null)
             {
@@ -73,7 +70,7 @@ namespace SIOSR.Controllers
                 return NotFound();
             }
 
-            var donasi = await _context.Donasis.SingleOrDefaultAsync(m => m.Id == id);
+            var donasi = await _context.Donasi.SingleOrDefaultAsync(m => m.Id == id);
             if (donasi == null)
             {
                 return NotFound();
@@ -124,7 +121,7 @@ namespace SIOSR.Controllers
                 return NotFound();
             }
 
-            var donasi = await _context.Donasis
+            var donasi = await _context.Donasi
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (donasi == null)
             {
@@ -139,15 +136,15 @@ namespace SIOSR.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var donasi = await _context.Donasis.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Donasis.Remove(donasi);
+            var donasi = await _context.Donasi.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Donasi.Remove(donasi);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool DonasiExists(int id)
         {
-            return _context.Donasis.Any(e => e.Id == id);
+            return _context.Donasi.Any(e => e.Id == id);
         }
     }
 }
