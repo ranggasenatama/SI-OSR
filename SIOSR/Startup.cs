@@ -1,9 +1,12 @@
-﻿using EFGetStarted.AspNetCore.NewDb.Models;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SIOSR.Data;
+using SIOSR.Models;
+using SIOSR.Services;
 
 namespace SIOSR {
     
@@ -17,29 +20,32 @@ namespace SIOSR {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
-            services.AddMvc ();
-            services.AddDbContext<MainContext> (
+            services.AddDbContext<ApplicationDbContext> (
                 options => options.UseNpgsql (Configuration.GetConnectionString ("pg_siosr")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole> ()
+                    .AddEntityFrameworkStores<ApplicationDbContext> ()
+                    .AddDefaultTokenProviders ();
+
+            services.AddTransient<IEmailSender, EmailSender> ();
+            services.AddMvc ();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure (IApplicationBuilder app, IHostingEnvironment env) {
-            if (env.IsDevelopment ())
+            if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
-            else
+                app.UseDatabaseErrorPage ();
+            }
+            else {
                 app.UseExceptionHandler ("/Home/Error");
+            }
 
             app.UseStaticFiles ();
+            app.UseAuthentication ();
 
-            app.UseMvc (routes => {
-                routes.MapRoute (
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-
-                // prefix is optional, by default = IlaroAdmin
-//                AdminInitialise.RegisterRoutes(RouteTable.Routes, prefix: "Admin");
-//                AdminInitialise.RegisterResourceRoutes(RouteTable.Routes);
-            });
+            app.UseMvc (
+                routes => routes.MapRoute ("default", "{controller=Home}/{action=Index}/{id?}"));
         }
     }
 }
