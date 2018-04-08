@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SIOSR.Models.PenggalanganDana {
+namespace SIOSR.Models.App {
 
     public class Donasi {
 
@@ -27,14 +27,13 @@ namespace SIOSR.Models.PenggalanganDana {
         public string AccountNumber { get; set; }
 
         [Required]
-        public int Total;
+        public int Total { get; set; }
 
         [Required]
         [StringLength (128)]
         public string Bank { get; set; }
 
         [Required]
-        [StringLength (128)]
         public string Status { get; set; }
     }
 }

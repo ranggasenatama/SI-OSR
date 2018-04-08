@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SIOSR.Models.PenggalanganDana {
+namespace SIOSR.Models.App {
 
     public class PenggalanganDana {
 
