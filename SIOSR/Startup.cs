@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +30,12 @@ namespace SIOSR {
                     .AddDefaultTokenProviders ();
 
             services.AddTransient<IEmailSender, EmailSender> ();
-            services.AddMvc ();
+
+            services.AddMvc (
+                config => config.Filters.Add (
+                    new AuthorizeFilter (
+                        new AuthorizationPolicyBuilder ().RequireAuthenticatedUser ()
+                                                         .Build ())));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

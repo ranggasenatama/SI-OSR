@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SIOSR.Models;
+using SIOSR.Models.PenggalanganDana;
 
 namespace SIOSR.Data
 {
@@ -10,6 +11,9 @@ namespace SIOSR.Data
             : base(options)
         {
         }
+
+        public DbSet<PenggalanganDana> PenggalanganDanas { get; set; }
+        public DbSet<Donasi> Donasis { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
