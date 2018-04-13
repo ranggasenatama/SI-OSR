@@ -7,6 +7,9 @@ namespace SIOSR.Models.App {
         public int Id { get; set; }
 
         [Required]
+        public int PenggalanganDanaId { get; set; }
+
+        [Required]
         [StringLength (64)]
         public string Title { get; set; }
 

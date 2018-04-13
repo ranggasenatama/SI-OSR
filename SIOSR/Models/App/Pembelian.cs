@@ -7,6 +7,9 @@ namespace SIOSR.Models.App {
         public int Id { get; set; }
 
         [Required]
+        public int UmkmId { get; set; }
+
+        [Required]
         [StringLength (128)]
         public string Title { get; set; }
 
