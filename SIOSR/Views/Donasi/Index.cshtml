@@ -28,10 +28,10 @@
                     @Html.DisplayNameFor(model => model.AccountNumber)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Bank)
+                    @Html.DisplayNameFor(model => model.Total)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Status)
+                    @Html.DisplayNameFor(model => model.Bank)
                 </th>
             <th></th>
         </tr>
@@ -55,10 +55,10 @@
                 @Html.DisplayFor(modelItem => item.AccountNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Bank)
+                @Html.DisplayFor(modelItem => item.Total)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status)
+                @Html.DisplayFor(modelItem => item.Bank)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

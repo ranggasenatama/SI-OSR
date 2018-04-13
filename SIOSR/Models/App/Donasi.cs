@@ -32,8 +32,5 @@ namespace SIOSR.Models.App {
         [Required]
         [StringLength (128)]
         public string Bank { get; set; }
-
-        [Required]
-        public string Status { get; set; }
     }
 }

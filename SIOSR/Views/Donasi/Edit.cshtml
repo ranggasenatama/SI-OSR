@@ -39,14 +39,14 @@
                 <span asp-validation-for="AccountNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Total" class="control-label"></label>
+                <input asp-for="Total" class="form-control" />
+                <span asp-validation-for="Total" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Bank" class="control-label"></label>
                 <input asp-for="Bank" class="form-control" />
                 <span asp-validation-for="Bank" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

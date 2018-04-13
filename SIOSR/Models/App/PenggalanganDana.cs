@@ -18,9 +18,6 @@ namespace SIOSR.Models.App {
         public int Total { get; set; }
 
         [Required]
-        public string Status { get; set; }
-
-        [Required]
         public int Image { get; set; }
     }
 }
