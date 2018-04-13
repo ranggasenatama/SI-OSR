@@ -54,7 +54,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PenggalanganDanaId,Title,Name,Phone,Address,AccountNumber,Total,Bank")] Donasi donasi)
+        public async Task<IActionResult> Create([Bind("Id,PenggalanganDanaId,Title,Name,Phone,Address,AccountNumber,Total,Bank,Status")] Donasi donasi)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PenggalanganDanaId,Title,Name,Phone,Address,AccountNumber,Total,Bank")] Donasi donasi)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,PenggalanganDanaId,Title,Name,Phone,Address,AccountNumber,Total,Bank,Status")] Donasi donasi)
         {
             if (id != donasi.Id)
             {

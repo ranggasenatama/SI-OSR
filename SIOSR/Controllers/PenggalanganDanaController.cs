@@ -54,7 +54,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Total,Image")] PenggalanganDana penggalanganDana)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,Total,Image,Status")] PenggalanganDana penggalanganDana)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Total,Image")] PenggalanganDana penggalanganDana)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Total,Image,Status")] PenggalanganDana penggalanganDana)
         {
             if (id != penggalanganDana.Id)
             {
