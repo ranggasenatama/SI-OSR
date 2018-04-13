@@ -41,6 +41,6 @@ namespace SIOSR.Models.App {
         [Required]
         public string Shipping { get; set; }
 
-        public Status Status { get; set; }
+        public Status? Status { get; set; }
     }
 }

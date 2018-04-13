@@ -20,6 +20,6 @@ namespace SIOSR.Models.App {
         [Required]
         public int Image { get; set; }
 
-        public Status Status { get; set; }
+        public Status? Status { get; set; }
     }
 }
