@@ -36,6 +36,7 @@ namespace SIOSR.Models.App {
         [StringLength (128)]
         public string Bank { get; set; }
 
+        [DisplayFormat (NullDisplayText = "Waiting For Approval")]
         public Status? Status { get; set; }
     }
 }

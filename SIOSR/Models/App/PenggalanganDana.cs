@@ -20,6 +20,7 @@ namespace SIOSR.Models.App {
         [Required]
         public int Image { get; set; }
 
+        [DisplayFormat (NullDisplayText = "Waiting For Approval")]
         public Status? Status { get; set; }
     }
 }

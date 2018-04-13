@@ -41,6 +41,7 @@ namespace SIOSR.Models.App {
         [Required]
         public string Shipping { get; set; }
 
+        [DisplayFormat (NullDisplayText = "Waiting For Approval")]
         public Status? Status { get; set; }
     }
 }
