@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SIOSR.Models.App {
 
@@ -26,5 +28,7 @@ namespace SIOSR.Models.App {
 
         [DisplayFormat (NullDisplayText = "Waiting For Approval")]
         public Status? Status { get; set; }
+
+        public ICollection<Donasi> Donasis { get; set; }
     }
 }

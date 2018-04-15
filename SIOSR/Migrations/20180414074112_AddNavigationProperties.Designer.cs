@@ -12,8 +12,8 @@ using System;
 namespace SIOSR.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180413121732_AddStatusAttributeAsEnum")]
-    partial class AddStatusAttributeAsEnum
+    [Migration("20180414074112_AddNavigationProperties")]
+    partial class AddNavigationProperties
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,7 +195,7 @@ namespace SIOSR.Migrations
                     b.Property<string>("Phone")
                         .IsRequired();
 
-                    b.Property<int>("Status");
+                    b.Property<int?>("Status");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -203,7 +203,13 @@ namespace SIOSR.Migrations
 
                     b.Property<int>("Total");
 
+                    b.Property<int?>("UmkmId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PenggalanganDanaId");
+
+                    b.HasIndex("UmkmId");
 
                     b.ToTable("Donasi");
                 });
@@ -279,7 +285,7 @@ namespace SIOSR.Migrations
                     b.Property<string>("Shipping")
                         .IsRequired();
 
-                    b.Property<int>("Status");
+                    b.Property<int?>("Status");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -288,6 +294,8 @@ namespace SIOSR.Migrations
                     b.Property<int>("UmkmId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UmkmId");
 
                     b.ToTable("Pembelian");
                 });
@@ -303,7 +311,7 @@ namespace SIOSR.Migrations
 
                     b.Property<int>("Image");
 
-                    b.Property<int>("Status");
+                    b.Property<int?>("Status");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -347,7 +355,7 @@ namespace SIOSR.Migrations
 
                     b.Property<int>("Price");
 
-                    b.Property<int>("Status");
+                    b.Property<int?>("Status");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -454,6 +462,26 @@ namespace SIOSR.Migrations
                     b.HasOne("SIOSR.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SIOSR.Models.App.Donasi", b =>
+                {
+                    b.HasOne("SIOSR.Models.App.PenggalanganDana", "PenggalanganDana")
+                        .WithMany("Donasis")
+                        .HasForeignKey("PenggalanganDanaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SIOSR.Models.App.Umkm")
+                        .WithMany("Donasis")
+                        .HasForeignKey("UmkmId");
+                });
+
+            modelBuilder.Entity("SIOSR.Models.App.Pembelian", b =>
+                {
+                    b.HasOne("SIOSR.Models.App.Umkm", "Umkm")
+                        .WithMany()
+                        .HasForeignKey("UmkmId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

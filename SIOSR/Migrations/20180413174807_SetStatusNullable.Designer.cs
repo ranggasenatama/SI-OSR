@@ -9,7 +9,7 @@ using SIOSR.Data;
 using SIOSR.Models.App;
 using System;
 
-namespace SIOSR.Data.Migrations
+namespace SIOSR.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20180413174807_SetStatusNullable")]

@@ -43,5 +43,7 @@ namespace SIOSR.Models.App {
 
         [DisplayFormat (NullDisplayText = "Waiting For Approval")]
         public Status? Status { get; set; }
+
+        public Umkm Umkm { get; set; }
     }
 }
