@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SIOSR.Data;
 using System;
 
-namespace SIOSR.Data.Migrations
+namespace SIOSR.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180408100628_AddPenggalanganDana")]
-    partial class AddPenggalanganDana
+    [Migration("20180408153734_RenamePenggalanganDanaAndDonasiTableName")]
+    partial class RenamePenggalanganDanaAndDonasiTableName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -128,6 +128,242 @@ namespace SIOSR.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("SIOSR.Models.App.Absensi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("Kehadiran")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Absensi");
+                });
+
+            modelBuilder.Entity("SIOSR.Models.App.Anak", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Birthday");
+
+                    b.Property<int>("Class");
+
+                    b.Property<string>("Contact")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Parent")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Anak");
+                });
+
+            modelBuilder.Entity("SIOSR.Models.App.Donasi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Bank")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Phone")
+                        .IsRequired();
+
+                    b.Property<string>("Status")
+                        .IsRequired();
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(64);
+
+                    b.Property<int>("Total");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Donasi");
+                });
+
+            modelBuilder.Entity("SIOSR.Models.App.Lomba", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Image")
+                        .IsRequired();
+
+                    b.Property<string>("Status")
+                        .IsRequired();
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(64);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Lomba");
+                });
+
+            modelBuilder.Entity("SIOSR.Models.App.Materi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Image")
+                        .IsRequired();
+
+                    b.Property<string>("Status")
+                        .IsRequired();
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(64);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Materi");
+                });
+
+            modelBuilder.Entity("SIOSR.Models.App.Pembelian", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AccountNumber")
+                        .IsRequired();
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<int>("Amount");
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Phone")
+                        .IsRequired();
+
+                    b.Property<int>("Price");
+
+                    b.Property<string>("Shipping")
+                        .IsRequired();
+
+                    b.Property<string>("Status")
+                        .IsRequired();
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pembelian");
+                });
+
+            modelBuilder.Entity("SIOSR.Models.App.PenggalanganDana", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<int>("Image");
+
+                    b.Property<string>("Status")
+                        .IsRequired();
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(64);
+
+                    b.Property<int>("Total");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PenggalanganDana");
+                });
+
+            modelBuilder.Entity("SIOSR.Models.App.Staff", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Phone")
+                        .IsRequired();
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Staff");
+                });
+
+            modelBuilder.Entity("SIOSR.Models.App.Umkm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Image")
+                        .IsRequired();
+
+                    b.Property<int>("Price");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(128);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Umkm");
+                });
+
             modelBuilder.Entity("SIOSR.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -176,68 +412,6 @@ namespace SIOSR.Data.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("SIOSR.Models.PenggalanganDana.Donasi", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AccountNumber")
-                        .IsRequired()
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Bank")
-                        .IsRequired()
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Phone")
-                        .IsRequired();
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(64);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Donasis");
-                });
-
-            modelBuilder.Entity("SIOSR.Models.PenggalanganDana.PenggalanganDana", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(256);
-
-                    b.Property<int>("Image");
-
-                    b.Property<string>("Status")
-                        .IsRequired();
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(64);
-
-                    b.Property<int>("Total");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PenggalanganDanas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

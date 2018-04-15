@@ -7,6 +7,9 @@ namespace SIOSR.Models.App {
         public int Id { get; set; }
 
         [Required]
+        public int PenggalanganDanaId { get; set; }
+
+        [Required]
         [StringLength (64)]
         public string Title { get; set; }
 
@@ -33,7 +36,9 @@ namespace SIOSR.Models.App {
         [StringLength (128)]
         public string Bank { get; set; }
 
-        [Required]
-        public string Status { get; set; }
+        [DisplayFormat (NullDisplayText = "Waiting For Approval")]
+        public Status? Status { get; set; }
+
+        public PenggalanganDana PenggalanganDana { get; set; }
     }
 }

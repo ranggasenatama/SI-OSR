@@ -6,14 +6,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SIOSR.Data;
+using SIOSR.Models.App;
 using System;
 
-namespace SIOSR.Data.Migrations
+namespace SIOSR.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180413121732_AddStatusAttributeAsEnum")]
+    partial class AddStatusAttributeAsEnum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,11 +190,12 @@ namespace SIOSR.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(128);
 
+                    b.Property<int>("PenggalanganDanaId");
+
                     b.Property<string>("Phone")
                         .IsRequired();
 
-                    b.Property<string>("Status")
-                        .IsRequired();
+                    b.Property<int>("Status");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -217,9 +220,6 @@ namespace SIOSR.Data.Migrations
                     b.Property<string>("Image")
                         .IsRequired();
 
-                    b.Property<string>("Status")
-                        .IsRequired();
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(64);
@@ -239,9 +239,6 @@ namespace SIOSR.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("Image")
-                        .IsRequired();
-
-                    b.Property<string>("Status")
                         .IsRequired();
 
                     b.Property<string>("Title")
@@ -282,12 +279,13 @@ namespace SIOSR.Data.Migrations
                     b.Property<string>("Shipping")
                         .IsRequired();
 
-                    b.Property<string>("Status")
-                        .IsRequired();
+                    b.Property<int>("Status");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(128);
+
+                    b.Property<int>("UmkmId");
 
                     b.HasKey("Id");
 
@@ -305,8 +303,7 @@ namespace SIOSR.Data.Migrations
 
                     b.Property<int>("Image");
 
-                    b.Property<string>("Status")
-                        .IsRequired();
+                    b.Property<int>("Status");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -349,6 +346,8 @@ namespace SIOSR.Data.Migrations
                         .IsRequired();
 
                     b.Property<int>("Price");
+
+                    b.Property<int>("Status");
 
                     b.Property<string>("Title")
                         .IsRequired()

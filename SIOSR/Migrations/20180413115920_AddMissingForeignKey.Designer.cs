@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SIOSR.Data;
 using System;
 
-namespace SIOSR.Data.Migrations
+namespace SIOSR.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180408153233_AddAllAppModels")]
-    partial class AddAllAppModels
+    [Migration("20180413115920_AddMissingForeignKey")]
+    partial class AddMissingForeignKey
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -189,10 +189,10 @@ namespace SIOSR.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(128);
 
-                    b.Property<string>("Phone")
+                    b.Property<int?>("PenggalanganDanaId")
                         .IsRequired();
 
-                    b.Property<string>("Status")
+                    b.Property<string>("Phone")
                         .IsRequired();
 
                     b.Property<string>("Title")
@@ -203,7 +203,7 @@ namespace SIOSR.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Donasis");
+                    b.ToTable("Donasi");
                 });
 
             modelBuilder.Entity("SIOSR.Models.App.Lomba", b =>
@@ -216,9 +216,6 @@ namespace SIOSR.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("Image")
-                        .IsRequired();
-
-                    b.Property<string>("Status")
                         .IsRequired();
 
                     b.Property<string>("Title")
@@ -240,9 +237,6 @@ namespace SIOSR.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("Image")
-                        .IsRequired();
-
-                    b.Property<string>("Status")
                         .IsRequired();
 
                     b.Property<string>("Title")
@@ -278,17 +272,17 @@ namespace SIOSR.Data.Migrations
                     b.Property<string>("Phone")
                         .IsRequired();
 
-                    b.Property<int>("Price");
-
-                    b.Property<string>("Shipping")
+                    b.Property<int?>("Price")
                         .IsRequired();
 
-                    b.Property<string>("Status")
+                    b.Property<string>("Shipping")
                         .IsRequired();
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(128);
+
+                    b.Property<int>("UmkmId");
 
                     b.HasKey("Id");
 
@@ -306,9 +300,6 @@ namespace SIOSR.Data.Migrations
 
                     b.Property<int>("Image");
 
-                    b.Property<string>("Status")
-                        .IsRequired();
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(64);
@@ -317,7 +308,7 @@ namespace SIOSR.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PenggalanganDanas");
+                    b.ToTable("PenggalanganDana");
                 });
 
             modelBuilder.Entity("SIOSR.Models.App.Staff", b =>

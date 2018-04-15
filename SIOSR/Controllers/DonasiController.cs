@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SIOSR.Data;
 using SIOSR.Models.App;
@@ -51,7 +54,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Name,Phone,Address,AccountNumber,Bank,Status")] Donasi donasi)
+        public async Task<IActionResult> Create([Bind("Id,PenggalanganDanaId,Title,Name,Phone,Address,AccountNumber,Total,Bank,Status")] Donasi donasi)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +86,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Name,Phone,Address,AccountNumber,Bank,Status")] Donasi donasi)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,PenggalanganDanaId,Title,Name,Phone,Address,AccountNumber,Total,Bank,Status")] Donasi donasi)
         {
             if (id != donasi.Id)
             {

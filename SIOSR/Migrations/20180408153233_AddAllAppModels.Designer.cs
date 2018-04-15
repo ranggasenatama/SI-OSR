@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SIOSR.Data;
 using System;
 
-namespace SIOSR.Data.Migrations
+namespace SIOSR.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180408153734_RenamePenggalanganDanaAndDonasiTableName")]
-    partial class RenamePenggalanganDanaAndDonasiTableName
+    [Migration("20180408153233_AddAllAppModels")]
+    partial class AddAllAppModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -203,7 +203,7 @@ namespace SIOSR.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Donasi");
+                    b.ToTable("Donasis");
                 });
 
             modelBuilder.Entity("SIOSR.Models.App.Lomba", b =>
@@ -317,7 +317,7 @@ namespace SIOSR.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PenggalanganDana");
+                    b.ToTable("PenggalanganDanas");
                 });
 
             modelBuilder.Entity("SIOSR.Models.App.Staff", b =>

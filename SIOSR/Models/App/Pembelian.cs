@@ -7,6 +7,9 @@ namespace SIOSR.Models.App {
         public int Id { get; set; }
 
         [Required]
+        public int UmkmId { get; set; }
+
+        [Required]
         [StringLength (128)]
         public string Title { get; set; }
 
@@ -38,7 +41,9 @@ namespace SIOSR.Models.App {
         [Required]
         public string Shipping { get; set; }
 
-        [Required]
-        public string Status { get; set; }
+        [DisplayFormat (NullDisplayText = "Waiting For Approval")]
+        public Status? Status { get; set; }
+
+        public Umkm Umkm { get; set; }
     }
 }
