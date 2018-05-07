@@ -1,20 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace SIOSR.Models.App {
 
-    public class Lomba {
-
-        public int Id { get; set; }
+    public class Lomba : TrackableEntity {
 
         [Required]
-        [StringLength (64)]
         public string Title { get; set; }
-
         [Required]
-        [StringLength (256)]
         public string Description { get; set; }
-
         [Required]
         public string Image { get; set; }
+
+        [DisplayFormat (NullDisplayText = "Waiting For Approval")]
+        public Status? Status { get; set; }
     }
 }

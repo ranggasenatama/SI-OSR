@@ -8,20 +8,20 @@ namespace SIOSR.Models.App {
         public int Id { get; set; }
 
         [Required]
-        [StringLength (128)]
         public string Name { get; set; }
-
+        [DataType (DataType.Date)]
+        [DisplayFormat (DataFormatString = "{0:dd/MM/yyyy}")]
+        [Required]
+        public DateTime Birthday { get; set; }
         [Required]
         public int Class { get; set; }
 
         [Required]
-        [StringLength (128)]
         public string Parent { get; set; }
-
         [Required]
         public string Contact { get; set; }
 
-        [Required]
-        public DateTime Birthday { get; set; }
+        [DisplayFormat (NullDisplayText = "Waiting For Approval")]
+        public Status? Status { get; set; }
     }
 }
