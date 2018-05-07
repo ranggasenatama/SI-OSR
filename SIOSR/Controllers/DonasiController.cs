@@ -22,7 +22,8 @@ namespace SIOSR.Controllers
         // GET: Donasi
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Donasi.ToListAsync());
+            var applicationDbContext = _context.Donasi.Include(d => d.PenggalanganDana);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Donasi/Details/5
@@ -34,6 +35,7 @@ namespace SIOSR.Controllers
             }
 
             var donasi = await _context.Donasi
+                .Include(d => d.PenggalanganDana)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (donasi == null)
             {
@@ -46,6 +48,7 @@ namespace SIOSR.Controllers
         // GET: Donasi/Create
         public IActionResult Create()
         {
+            ViewData["PenggalanganDanaId"] = new SelectList(_context.PenggalanganDana, "Id", "Description");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PenggalanganDanaId,Title,Name,Phone,Address,AccountNumber,Total,Bank,Status")] Donasi donasi)
+        public async Task<IActionResult> Create([Bind("PenggalanganDanaId,Name,Phone,Address,Total,AccountNumber,Bank,Id")] Donasi donasi)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace SIOSR.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["PenggalanganDanaId"] = new SelectList(_context.PenggalanganDana, "Id", "Description", donasi.PenggalanganDanaId);
             return View(donasi);
         }
 
@@ -78,6 +82,7 @@ namespace SIOSR.Controllers
             {
                 return NotFound();
             }
+            ViewData["PenggalanganDanaId"] = new SelectList(_context.PenggalanganDana, "Id", "Description", donasi.PenggalanganDanaId);
             return View(donasi);
         }
 
@@ -86,7 +91,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PenggalanganDanaId,Title,Name,Phone,Address,AccountNumber,Total,Bank,Status")] Donasi donasi)
+        public async Task<IActionResult> Edit(int id, [Bind("PenggalanganDanaId,Name,Phone,Address,Total,AccountNumber,Bank,Id")] Donasi donasi)
         {
             if (id != donasi.Id)
             {
@@ -113,6 +118,7 @@ namespace SIOSR.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["PenggalanganDanaId"] = new SelectList(_context.PenggalanganDana, "Id", "Description", donasi.PenggalanganDanaId);
             return View(donasi);
         }
 
@@ -125,6 +131,7 @@ namespace SIOSR.Controllers
             }
 
             var donasi = await _context.Donasi
+                .Include(d => d.PenggalanganDana)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (donasi == null)
             {

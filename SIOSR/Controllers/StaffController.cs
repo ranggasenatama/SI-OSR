@@ -22,7 +22,8 @@ namespace SIOSR.Controllers
         // GET: Staff
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Staff.ToListAsync());
+            var applicationDbContext = _context.Staff.Include(s => s.ApplicationUser);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Staff/Details/5
@@ -34,7 +35,8 @@ namespace SIOSR.Controllers
             }
 
             var staff = await _context.Staff
-                .SingleOrDefaultAsync(m => m.UserId == id);
+                .Include(s => s.ApplicationUser)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (staff == null)
             {
                 return NotFound();
@@ -46,6 +48,7 @@ namespace SIOSR.Controllers
         // GET: Staff/Create
         public IActionResult Create()
         {
+            ViewData["ApplicationUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,Name,Phone")] Staff staff)
+        public async Task<IActionResult> Create([Bind("ApplicationUserId,Name,Phone,Status,Id")] Staff staff)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace SIOSR.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ApplicationUserId"] = new SelectList(_context.Users, "Id", "Id", staff.ApplicationUserId);
             return View(staff);
         }
 
@@ -73,11 +77,12 @@ namespace SIOSR.Controllers
                 return NotFound();
             }
 
-            var staff = await _context.Staff.SingleOrDefaultAsync(m => m.UserId == id);
+            var staff = await _context.Staff.SingleOrDefaultAsync(m => m.Id == id);
             if (staff == null)
             {
                 return NotFound();
             }
+            ViewData["ApplicationUserId"] = new SelectList(_context.Users, "Id", "Id", staff.ApplicationUserId);
             return View(staff);
         }
 
@@ -86,9 +91,9 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserId,Name,Phone")] Staff staff)
+        public async Task<IActionResult> Edit(int id, [Bind("ApplicationUserId,Name,Phone,Status,Id")] Staff staff)
         {
-            if (id != staff.UserId)
+            if (id != staff.Id)
             {
                 return NotFound();
             }
@@ -102,7 +107,7 @@ namespace SIOSR.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StaffExists(staff.UserId))
+                    if (!StaffExists(staff.Id))
                     {
                         return NotFound();
                     }
@@ -113,6 +118,7 @@ namespace SIOSR.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ApplicationUserId"] = new SelectList(_context.Users, "Id", "Id", staff.ApplicationUserId);
             return View(staff);
         }
 
@@ -125,7 +131,8 @@ namespace SIOSR.Controllers
             }
 
             var staff = await _context.Staff
-                .SingleOrDefaultAsync(m => m.UserId == id);
+                .Include(s => s.ApplicationUser)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (staff == null)
             {
                 return NotFound();
@@ -139,7 +146,7 @@ namespace SIOSR.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var staff = await _context.Staff.SingleOrDefaultAsync(m => m.UserId == id);
+            var staff = await _context.Staff.SingleOrDefaultAsync(m => m.Id == id);
             _context.Staff.Remove(staff);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -147,7 +154,7 @@ namespace SIOSR.Controllers
 
         private bool StaffExists(int id)
         {
-            return _context.Staff.Any(e => e.UserId == id);
+            return _context.Staff.Any(e => e.Id == id);
         }
     }
 }

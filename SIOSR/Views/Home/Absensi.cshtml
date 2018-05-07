@@ -1,0 +1,28 @@
+﻿@model IEnumerable<SIOSR.Models.App.Absensi>
+
+@{
+    ViewBag.Title = "Absensi";
+}
+
+<div class="clearfix"> </div>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th width="50%">Tanggal</th>
+        <th width="50%">Kehadiran</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var item in Model) {
+
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+            <td>@item.Kehadiran</td>
+        </tr>
+
+    }
+
+    </tbody>
+</table>

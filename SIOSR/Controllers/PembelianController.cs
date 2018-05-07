@@ -22,7 +22,8 @@ namespace SIOSR.Controllers
         // GET: Pembelian
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Pembelian.ToListAsync());
+            var applicationDbContext = _context.Pembelian.Include(p => p.Umkm);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Pembelian/Details/5
@@ -34,6 +35,7 @@ namespace SIOSR.Controllers
             }
 
             var pembelian = await _context.Pembelian
+                .Include(p => p.Umkm)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (pembelian == null)
             {
@@ -46,6 +48,7 @@ namespace SIOSR.Controllers
         // GET: Pembelian/Create
         public IActionResult Create()
         {
+            ViewData["UmkmId"] = new SelectList(_context.Umkm, "Id", "Description");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UmkmId,Title,Price,Name,Phone,Email,Address,Amount,AccountNumber,Shipping,Status")] Pembelian pembelian)
+        public async Task<IActionResult> Create([Bind("UmkmId,Name,Phone,Email,Address,Amount,AccountNumber,Shipping,Status,Id")] Pembelian pembelian)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace SIOSR.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["UmkmId"] = new SelectList(_context.Umkm, "Id", "Description", pembelian.UmkmId);
             return View(pembelian);
         }
 
@@ -78,6 +82,7 @@ namespace SIOSR.Controllers
             {
                 return NotFound();
             }
+            ViewData["UmkmId"] = new SelectList(_context.Umkm, "Id", "Description", pembelian.UmkmId);
             return View(pembelian);
         }
 
@@ -86,7 +91,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UmkmId,Title,Price,Name,Phone,Email,Address,Amount,AccountNumber,Shipping,Status")] Pembelian pembelian)
+        public async Task<IActionResult> Edit(int id, [Bind("UmkmId,Name,Phone,Email,Address,Amount,AccountNumber,Shipping,Status,Id")] Pembelian pembelian)
         {
             if (id != pembelian.Id)
             {
@@ -113,6 +118,7 @@ namespace SIOSR.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["UmkmId"] = new SelectList(_context.Umkm, "Id", "Description", pembelian.UmkmId);
             return View(pembelian);
         }
 
@@ -125,6 +131,7 @@ namespace SIOSR.Controllers
             }
 
             var pembelian = await _context.Pembelian
+                .Include(p => p.Umkm)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (pembelian == null)
             {

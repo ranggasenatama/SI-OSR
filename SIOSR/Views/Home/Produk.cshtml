@@ -1,8 +1,38 @@
-﻿@model object
+﻿@model IEnumerable<SIOSR.Models.App.Umkm>
 
 @{
     ViewBag.Title = "Produk";
-    Layout = "_Layout";
+    ViewBag.NavProduk = "active";
 }
 
-<h2>Produk</h2>
+<div class="blog">
+
+    @foreach (var item in Model) {
+
+        <div class="blog-left-grid">
+            <div class="blog-left-grid-left">
+                <h3>
+                    <a asp-controller="Home" asp-action="ProdukDetails" asp-route-produkId="@item.Id">@item.Title</a>
+                </h3>
+                <p>by <span></span> | @Html.DisplayFor(modelItem => item.CreatedAt)</p>
+            </div>
+
+            <div class="clearfix"> </div>
+
+            <a asp-controller="Home" asp-action="ProdukDetails" asp-route-produkId="@item.Id">
+                <img src="@string.Format("/images/media/umkm/{0}.jpg", item.Id)" alt="@item.Title" class="img-responsive"/>
+            </a>
+
+            <p class="para">@item.Description</p>
+
+            <div class="rd-mre">
+                <a asp-controller="Home" asp-action="ProdukDetails" asp-route-produkId="@item.Id" class="hvr-bounce-to-bottom quod">Read More</a>
+            </div>
+        </div>
+
+        <br>
+
+    }
+
+    <div class="clearfix"> </div>
+</div>
