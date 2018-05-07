@@ -3,15 +3,20 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SIOSR.Data;
+using SIOSR.Models;
+using SIOSR.Models.App;
 using System;
 
 namespace SIOSR.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180507153809_UserType")]
+    partial class UserType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,10 +161,12 @@ namespace SIOSR.Migrations
                         .IsRequired();
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(128);
 
                     b.Property<string>("Parent")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(128);
 
                     b.Property<int?>("Status");
 
@@ -174,25 +181,32 @@ namespace SIOSR.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AccountNumber")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(128);
 
                     b.Property<string>("Address")
-                        .IsRequired();
+                        .HasMaxLength(128);
 
                     b.Property<string>("Bank")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(128);
 
                     b.Property<int>("PenggalanganDanaId");
 
                     b.Property<string>("Phone")
                         .IsRequired();
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(64);
 
                     b.Property<int>("Total");
 
@@ -219,7 +233,8 @@ namespace SIOSR.Migrations
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Description")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(256);
 
                     b.Property<string>("Image")
                         .IsRequired();
@@ -227,7 +242,8 @@ namespace SIOSR.Migrations
                     b.Property<int?>("Status");
 
                     b.Property<string>("Title")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(64);
 
                     b.Property<DateTime?>("UpdatedAt");
 
@@ -246,13 +262,15 @@ namespace SIOSR.Migrations
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Description")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(256);
 
                     b.Property<string>("Image")
                         .IsRequired();
 
                     b.Property<string>("Title")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(64);
 
                     b.Property<DateTime?>("UpdatedAt");
 
@@ -270,9 +288,8 @@ namespace SIOSR.Migrations
                         .IsRequired();
 
                     b.Property<string>("Address")
-                        .IsRequired();
-
-                    b.Property<int>("Amount");
+                        .IsRequired()
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -282,7 +299,8 @@ namespace SIOSR.Migrations
                         .IsRequired();
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(128);
 
                     b.Property<string>("Phone")
                         .IsRequired();
@@ -291,6 +309,8 @@ namespace SIOSR.Migrations
                         .IsRequired();
 
                     b.Property<int?>("Status");
+
+                    b.Property<int>("Total");
 
                     b.Property<int>("UmkmId");
 
@@ -313,7 +333,8 @@ namespace SIOSR.Migrations
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Description")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(256);
 
                     b.Property<string>("Image")
                         .IsRequired();
@@ -321,7 +342,10 @@ namespace SIOSR.Migrations
                     b.Property<int?>("Status");
 
                     b.Property<string>("Title")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(64);
+
+                    b.Property<int>("Total");
 
                     b.Property<DateTime?>("UpdatedAt");
 
@@ -343,7 +367,8 @@ namespace SIOSR.Migrations
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(128);
 
                     b.Property<string>("Phone")
                         .IsRequired();
@@ -369,7 +394,8 @@ namespace SIOSR.Migrations
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Description")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(256);
 
                     b.Property<string>("Image")
                         .IsRequired();
@@ -379,10 +405,12 @@ namespace SIOSR.Migrations
                     b.Property<int?>("Status");
 
                     b.Property<string>("Title")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(128);
 
                     b.Property<string>("Type")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("UpdatedAt");
 

@@ -3,15 +3,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SIOSR.Data;
+using SIOSR.Models.App;
 using System;
 
 namespace SIOSR.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180422201909_ReAddCreatedAtAbsensi")]
+    partial class ReAddCreatedAtAbsensi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,16 +156,13 @@ namespace SIOSR.Migrations
 
                     b.Property<int>("Class");
 
-                    b.Property<string>("Contact")
-                        .IsRequired();
+                    b.Property<string>("Contact");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .HasMaxLength(128);
 
                     b.Property<string>("Parent")
-                        .IsRequired();
-
-                    b.Property<int?>("Status");
+                        .HasMaxLength(128);
 
                     b.HasKey("Id");
 
@@ -174,25 +175,29 @@ namespace SIOSR.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AccountNumber")
-                        .IsRequired();
+                        .HasMaxLength(128);
 
                     b.Property<string>("Address")
-                        .IsRequired();
+                        .HasMaxLength(128);
 
                     b.Property<string>("Bank")
-                        .IsRequired();
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .HasMaxLength(128);
 
                     b.Property<int>("PenggalanganDanaId");
 
-                    b.Property<string>("Phone")
-                        .IsRequired();
+                    b.Property<string>("Phone");
+
+                    b.Property<int?>("Status");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(64);
 
                     b.Property<int>("Total");
 
@@ -219,15 +224,12 @@ namespace SIOSR.Migrations
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Description")
-                        .IsRequired();
+                        .HasMaxLength(256);
 
-                    b.Property<string>("Image")
-                        .IsRequired();
-
-                    b.Property<int?>("Status");
+                    b.Property<string>("Image");
 
                     b.Property<string>("Title")
-                        .IsRequired();
+                        .HasMaxLength(64);
 
                     b.Property<DateTime?>("UpdatedAt");
 
@@ -246,13 +248,12 @@ namespace SIOSR.Migrations
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Description")
-                        .IsRequired();
+                        .HasMaxLength(256);
 
-                    b.Property<string>("Image")
-                        .IsRequired();
+                    b.Property<string>("Image");
 
                     b.Property<string>("Title")
-                        .IsRequired();
+                        .HasMaxLength(64);
 
                     b.Property<DateTime?>("UpdatedAt");
 
@@ -266,11 +267,10 @@ namespace SIOSR.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AccountNumber")
-                        .IsRequired();
+                    b.Property<string>("AccountNumber");
 
                     b.Property<string>("Address")
-                        .IsRequired();
+                        .HasMaxLength(128);
 
                     b.Property<int>("Amount");
 
@@ -278,19 +278,21 @@ namespace SIOSR.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("now()");
 
-                    b.Property<string>("Email")
-                        .IsRequired();
+                    b.Property<string>("Email");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Phone")
-                        .IsRequired();
+                    b.Property<string>("Phone");
 
-                    b.Property<string>("Shipping")
-                        .IsRequired();
+                    b.Property<int>("Price");
+
+                    b.Property<string>("Shipping");
 
                     b.Property<int?>("Status");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(128);
 
                     b.Property<int>("UmkmId");
 
@@ -313,15 +315,16 @@ namespace SIOSR.Migrations
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Description")
-                        .IsRequired();
+                        .HasMaxLength(256);
 
-                    b.Property<string>("Image")
-                        .IsRequired();
+                    b.Property<string>("Image");
 
                     b.Property<int?>("Status");
 
                     b.Property<string>("Title")
-                        .IsRequired();
+                        .HasMaxLength(64);
+
+                    b.Property<int>("Total");
 
                     b.Property<DateTime?>("UpdatedAt");
 
@@ -335,20 +338,18 @@ namespace SIOSR.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired();
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<int?>("Category");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Name")
-                        .IsRequired();
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Phone")
-                        .IsRequired();
-
-                    b.Property<int?>("Status");
+                    b.Property<string>("Phone");
 
                     b.Property<DateTime?>("UpdatedAt");
 
@@ -369,20 +370,19 @@ namespace SIOSR.Migrations
                         .HasDefaultValueSql("now()");
 
                     b.Property<string>("Description")
-                        .IsRequired();
+                        .HasMaxLength(256);
 
-                    b.Property<string>("Image")
-                        .IsRequired();
+                    b.Property<string>("Image");
 
                     b.Property<int>("Price");
 
                     b.Property<int?>("Status");
 
                     b.Property<string>("Title")
-                        .IsRequired();
+                        .HasMaxLength(128);
 
                     b.Property<string>("Type")
-                        .IsRequired();
+                        .HasMaxLength(128);
 
                     b.Property<DateTime?>("UpdatedAt");
 
@@ -428,8 +428,6 @@ namespace SIOSR.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
-
-                    b.Property<int?>("UserType");
 
                     b.HasKey("Id");
 
@@ -512,8 +510,7 @@ namespace SIOSR.Migrations
                 {
                     b.HasOne("SIOSR.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ApplicationUserId");
                 });
 #pragma warning restore 612, 618
         }
