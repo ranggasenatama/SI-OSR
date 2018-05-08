@@ -14,7 +14,7 @@
                 <h3>
                     <a asp-controller="Home" asp-action="ProdukDetails" asp-route-produkId="@item.Id">@item.Title</a>
                 </h3>
-                <p>by <span></span> | @Html.DisplayFor(modelItem => item.CreatedAt)</p>
+                <p>@Html.DisplayFor(modelItem => item.CreatedAt)</p>
             </div>
 
             <div class="clearfix"> </div>

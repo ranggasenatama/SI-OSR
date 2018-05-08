@@ -8,13 +8,16 @@
 <div>
     <div class="artical-content">
         <h3>@Model.Title</h3>
-        <img src="@string.Format("/images/media/donasi/{0}.jpg", Model.Id)" alt="@Model.Title" class="img-responsive"/>
+        <img src="@string.Format("/images/media/penggalangandana/{0}.jpg", Model.Id)" alt="@Model.Title" class="img-responsive"/>
         <p>@Model.Description</p>
+        <div class="rd-mre">
+            <a asp-controller="Home" asp-action="Donate" asp-route-penggalanganId="@Model.Id" class="hvr-bounce-to-bottom non">Donasi</a>
+        </div>
     </div>
     <div class="artical-links">
         <ul>
             <li>
-                <small> </small><span>@Model.Total</span>
+                <small> </small><span>@Model.Donasis.Count</span>
             </li>
             <li>
                 <a href="#">
@@ -29,11 +32,6 @@
             <li>
                 <a href="#">
                     <small class="posts"> </small><span>View posts</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="btn btn-default">
-                    <small class="link"> </small><span>Donasi</span>
                 </a>
             </li>
         </ul>

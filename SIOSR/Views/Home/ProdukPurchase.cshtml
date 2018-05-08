@@ -89,13 +89,13 @@
                         Phone: $('#phone').val(),
                         Email: $('#email').val(),
                         Address: $('#address').val(),
-                        Total: $('#total').val(),
+                        Amount: $('#total').val(),
                         AccountNumber: $('#accountNumber').val()
                     },
                     headers: {
                         RequestVerificationToken: $("input[name='__RequestVerificationToken']").val()
                     },
-                    success: () => { window.location.href = '/Home/Product'; }
+                    success: () => { window.location.href = '/Home/Produk'; }
                 });
             });
     </script>
