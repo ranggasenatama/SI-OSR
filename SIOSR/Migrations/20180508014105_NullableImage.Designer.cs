@@ -13,9 +13,10 @@ using System;
 namespace SIOSR.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180508014105_NullableImage")]
+    partial class NullableImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,11 +201,15 @@ namespace SIOSR.Migrations
 
                     b.Property<int>("Total");
 
+                    b.Property<int?>("UmkmId");
+
                     b.Property<DateTime?>("UpdatedAt");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PenggalanganDanaId");
+
+                    b.HasIndex("UmkmId");
 
                     b.ToTable("Donasi");
                 });
@@ -283,6 +288,9 @@ namespace SIOSR.Migrations
                         .IsRequired();
 
                     b.Property<string>("Phone")
+                        .IsRequired();
+
+                    b.Property<string>("Shipping")
                         .IsRequired();
 
                     b.Property<int?>("Status");
@@ -422,7 +430,7 @@ namespace SIOSR.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
-                    b.Property<int>("UserType");
+                    b.Property<int?>("UserType");
 
                     b.HasKey("Id");
 
@@ -487,12 +495,16 @@ namespace SIOSR.Migrations
                         .WithMany("Donasis")
                         .HasForeignKey("PenggalanganDanaId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SIOSR.Models.App.Umkm")
+                        .WithMany("Donasis")
+                        .HasForeignKey("UmkmId");
                 });
 
             modelBuilder.Entity("SIOSR.Models.App.Pembelian", b =>
                 {
                     b.HasOne("SIOSR.Models.App.Umkm", "Umkm")
-                        .WithMany("Pembelians")
+                        .WithMany()
                         .HasForeignKey("UmkmId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

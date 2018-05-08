@@ -13,9 +13,10 @@ using System;
 namespace SIOSR.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180508051603_TypoUmkmDonasi")]
+    partial class TypoUmkmDonasi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -285,6 +286,9 @@ namespace SIOSR.Migrations
                     b.Property<string>("Phone")
                         .IsRequired();
 
+                    b.Property<string>("Shipping")
+                        .IsRequired();
+
                     b.Property<int?>("Status");
 
                     b.Property<int>("UmkmId");
@@ -317,9 +321,13 @@ namespace SIOSR.Migrations
                     b.Property<string>("Title")
                         .IsRequired();
 
+                    b.Property<int?>("UmkmId");
+
                     b.Property<DateTime?>("UpdatedAt");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UmkmId");
 
                     b.ToTable("PenggalanganDana");
                 });
@@ -492,9 +500,16 @@ namespace SIOSR.Migrations
             modelBuilder.Entity("SIOSR.Models.App.Pembelian", b =>
                 {
                     b.HasOne("SIOSR.Models.App.Umkm", "Umkm")
-                        .WithMany("Pembelians")
+                        .WithMany()
                         .HasForeignKey("UmkmId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SIOSR.Models.App.PenggalanganDana", b =>
+                {
+                    b.HasOne("SIOSR.Models.App.Umkm")
+                        .WithMany("PenggalanganDanas")
+                        .HasForeignKey("UmkmId");
                 });
 
             modelBuilder.Entity("SIOSR.Models.App.Staff", b =>
