@@ -19,12 +19,11 @@ namespace SIOSR.Models.App {
         [Required]
         public string Description { get; set; }
 
-        [Required]
         public string Image { get; set; }
 
         [DisplayFormat (NullDisplayText = "Waiting For Approval")]
         public Status? Status { get; set; }
 
-        public ICollection<Donasi> Donasis { get; set; }
+        public ICollection<Pembelian> Pembelians { get; set; }
     }
 }

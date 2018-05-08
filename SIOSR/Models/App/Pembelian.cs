@@ -24,8 +24,6 @@ namespace SIOSR.Models.App {
         public int Amount { get; set; }
         [Required]
         public string AccountNumber { get; set; }
-        [Required]
-        public string Shipping { get; set; }
 
         [DisplayFormat (NullDisplayText = "Waiting For Approval")]
         public Status? Status { get; set; }

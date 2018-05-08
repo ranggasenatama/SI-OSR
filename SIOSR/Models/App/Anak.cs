@@ -10,7 +10,7 @@ namespace SIOSR.Models.App {
         [Required]
         public string Name { get; set; }
         [DataType (DataType.Date)]
-        [DisplayFormat (DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat (DataFormatString = "{0:dd/mm/yyyy}")]
         [Required]
         public DateTime Birthday { get; set; }
         [Required]

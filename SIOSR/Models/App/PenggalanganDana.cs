@@ -12,7 +12,6 @@ namespace SIOSR.Models.App {
         [Required]
         public string Description { get; set; }
 
-        [Required]
         public string Image { get; set; }
 
         [DisplayFormat (NullDisplayText = "Waiting For Approval")]
