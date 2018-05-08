@@ -1,0 +1,40 @@
+﻿@model SIOSR.Models.App.Materi
+
+@{
+    ViewBag.Title = @Model.Title;
+}
+
+<div>
+    <div class="artical-content">
+        <h3>@Model.Title</h3>
+        <img src="@string.Format("/images/media/materi/{0}.jpg", Model.Id)" alt="@Model.Title" class="img-responsive"/>
+        <p>@Model.Description</p>
+    </div>
+    <div class="artical-links">
+        <ul>
+            <li>
+                <small> </small><span></span>
+            </li>
+            <li>
+                <a href="#">
+                    <small class="admin"> </small><span>admin</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <small class="no"> </small><span>No comments</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <small class="posts"> </small><span>View posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <small class="link"> </small><span>permalink</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

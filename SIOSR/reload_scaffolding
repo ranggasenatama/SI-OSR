@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+all_models=("Absensi" "Anak" "Donasi" "Lomba" "Materi" "Pembelian" "PenggalanganDana" "Staff" "Umkm")
+
+if [ "$1" = "all" ]
+then
+    models=${all_models[*]}
+else
+    models=($@)
+fi
+
+for m in $models
+do
+    dotnet aspnet-codegenerator controller -name "$m"Controller -m $m -dc ApplicationDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries -f
+done

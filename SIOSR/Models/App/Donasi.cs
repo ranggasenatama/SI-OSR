@@ -1,43 +1,34 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace SIOSR.Models.App {
 
-    public class Donasi {
+    public class Donasi : TrackableEntity {
 
-        public int Id { get; set; }
-
+        [ForeignKey ("PenggalanganDana")]
         [Required]
         public int PenggalanganDanaId { get; set; }
 
         [Required]
-        [StringLength (64)]
-        public string Title { get; set; }
-
-        [Required]
-        [StringLength (128)]
         public string Name { get; set; }
 
-        [Required]
         [Phone]
+        [Required]
         public string Phone { get; set; }
 
         [Required]
-        [StringLength (128)]
         public string Address { get; set; }
-
-        [Required]
-        [StringLength (128)]
-        public string AccountNumber { get; set; }
 
         [Required]
         public int Total { get; set; }
 
         [Required]
-        [StringLength (128)]
-        public string Bank { get; set; }
+        public string AccountNumber { get; set; }
 
-        [DisplayFormat (NullDisplayText = "Waiting For Approval")]
-        public Status? Status { get; set; }
+        [Required]
+        public string Bank { get; set; }
 
         public PenggalanganDana PenggalanganDana { get; set; }
     }

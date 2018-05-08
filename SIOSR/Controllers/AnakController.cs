@@ -54,7 +54,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Class,Parent,Contact,Birthday")] Anak anak)
+        public async Task<IActionResult> Create([Bind("Id,Name,Birthday,Class,Parent,Contact,Status")] Anak anak)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Class,Parent,Contact,Birthday")] Anak anak)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Birthday,Class,Parent,Contact,Status")] Anak anak)
         {
             if (id != anak.Id)
             {
@@ -148,6 +148,22 @@ namespace SIOSR.Controllers
         private bool AnakExists(int id)
         {
             return _context.Anak.Any(e => e.Id == id);
+        }
+
+        private IActionResult SetStatus (int id, Status status) {
+            var anak = _context.Anak.Single (a => a.Id == id);
+            anak.Status = status;
+            _context.Update (anak);
+            _context.SaveChanges ();
+            return Ok ();
+        }
+
+        public IActionResult Approve (int id) {
+            return SetStatus (id, Status.Approved);
+        }
+
+        public IActionResult Reject (int id) {
+            return SetStatus (id, Status.Rejected);
         }
     }
 }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +15,12 @@ namespace SIOSR.Controllers
     public class UmkmController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public UmkmController(ApplicationDbContext context)
+        public UmkmController(ApplicationDbContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         // GET: Umkm
@@ -54,12 +58,21 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Type,Price,Description,Image,Status")] Umkm umkm)
+        public async Task<IActionResult> Create([Bind("Title,Type,Price,Description,Status,Id")] Umkm umkm)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(umkm);
                 await _context.SaveChangesAsync();
+                var fileName = string.Format ("{0}/images/media/umkm/{1}.jpg", _hostingEnvironment.WebRootPath, umkm.Id);
+                umkm.Image = fileName;
+                Directory.CreateDirectory (Path.GetDirectoryName (fileName));
+
+                foreach (var formFile in Request.Form.Files)
+                    if (formFile.Length > 0)
+                        using (var stream = new FileStream (fileName, FileMode.Create))
+                            await formFile.CopyToAsync (stream);
+                await _context.SaveChangesAsync ();
                 return RedirectToAction(nameof(Index));
             }
             return View(umkm);
@@ -86,7 +99,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Type,Price,Description,Image,Status")] Umkm umkm)
+        public async Task<IActionResult> Edit(int id, [Bind("Title,Type,Price,Description,Status,Id")] Umkm umkm)
         {
             if (id != umkm.Id)
             {
@@ -97,6 +110,14 @@ namespace SIOSR.Controllers
             {
                 try
                 {
+                    var fileName = string.Format ("{0}/images/media/umkm/{1}.jpg", _hostingEnvironment.WebRootPath, umkm.Id);
+                    Directory.CreateDirectory (Path.GetDirectoryName (fileName));
+
+                    foreach (var formFile in Request.Form.Files)
+                        if (formFile.Length > 0)
+                            using (var stream = new FileStream (fileName, FileMode.Create))
+                                await formFile.CopyToAsync (stream);
+                    umkm.Image = fileName;
                     _context.Update(umkm);
                     await _context.SaveChangesAsync();
                 }
@@ -148,6 +169,22 @@ namespace SIOSR.Controllers
         private bool UmkmExists(int id)
         {
             return _context.Umkm.Any(e => e.Id == id);
+        }
+
+        private IActionResult SetStatus (int id, Status status) {
+            var umkm = _context.Umkm.Single (a => a.Id == id);
+            umkm.Status = status;
+            _context.Update (umkm);
+            _context.SaveChanges ();
+            return Ok ();
+        }
+
+        public IActionResult Approve (int id) {
+            return SetStatus (id, Status.Approved);
+        }
+
+        public IActionResult Reject (int id) {
+            return SetStatus (id, Status.Rejected);
         }
     }
 }

@@ -1,0 +1,39 @@
+﻿@model SIOSR.Models.App.PenggalanganDana
+
+@{
+    ViewBag.Title = @Model.Title;
+    ViewBag.NavDonasi = "active";
+}
+
+<div>
+    <div class="artical-content">
+        <h3>@Model.Title</h3>
+        <img src="@string.Format("/images/media/penggalangandana/{0}.jpg", Model.Id)" alt="@Model.Title" class="img-responsive"/>
+        <p>@Model.Description</p>
+        <div class="rd-mre">
+            <a asp-controller="Home" asp-action="Donate" asp-route-penggalanganId="@Model.Id" class="hvr-bounce-to-bottom non">Donasi</a>
+        </div>
+    </div>
+    <div class="artical-links">
+        <ul>
+            <li>
+                <small> </small><span>@Model.Donasis.Count</span>
+            </li>
+            <li>
+                <a href="#">
+                    <small class="admin"> </small><span>admin</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <small class="no"> </small><span>No comments</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <small class="posts"> </small><span>View posts</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

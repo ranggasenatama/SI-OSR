@@ -1,18 +1,25 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace SIOSR.Models.App {
 
-    public class Staff {
+    public class Staff : TrackableEntity {
 
-        [Key]
-        public int UserId { get; set; }
+        [ForeignKey ("ApplicationUser")]
+        [Required]
+        public string ApplicationUserId { get; set; }
 
         [Required]
-        [StringLength (128)]
         public string Name { get; set; }
-
-        [Required]
         [Phone]
+        [Required]
         public string Phone { get; set; }
+
+        [DisplayFormat (NullDisplayText = "Waiting For Approval")]
+        public Status? Status { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

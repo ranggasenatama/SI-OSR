@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SIOSR.Models.App.Materi>
+
+@{
+    ViewBag.Title = "Materi Pengajaran";
+}
+
+<div class="blog">
+
+    @foreach (var item in Model) {
+
+        <div class="blog-left-grid">
+            <div class="blog-left-grid-left">
+                <h3>
+                    <a asp-controller="Home" asp-action="MateriDetails" asp-route-materiId="@item.Id">@item.Title</a>
+                </h3>
+                <p>by <span></span> | @Html.DisplayFor(modelItem => item.CreatedAt)</p>
+            </div>
+
+            <div class="clearfix"> </div>
+
+            <a asp-controller="Home" asp-action="MateriDetails" asp-route-materiId="@item.Id">
+                <img src="@string.Format("/images/media/materi/{0}.jpg", item.Id)" alt="@item.Title" class="img-responsive"/>
+            </a>
+
+            <p class="para">@item.Description</p>
+
+            <div class="rd-mre">
+                <a asp-controller="Home" asp-action="MateriDetails" asp-route-materiId="@item.Id" class="hvr-bounce-to-bottom quod">Read More</a>
+            </div>
+        </div>
+
+    }
+
+    <div class="clearfix"> </div>
+</div>

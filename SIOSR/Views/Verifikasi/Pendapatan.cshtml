@@ -1,0 +1,58 @@
+﻿@using SIOSR.Models.App
+@model PendapatanViewModel
+
+@{
+    ViewBag.Title = "Pendapatan";
+    ViewBag.NavAdmin = "active";
+}
+
+<h2>Pendapatan</h2>
+
+<hr>
+<h4>UMKM</h4>
+
+<table class="table table-bordered table-responsive">
+    <thead>
+    <tr>
+        <td>Title</td>
+        <td>Total</td>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (Umkm item in Model.Umkms) {
+        <tr>
+            <td>@item.Title</td>
+            <td>@item.Pembelians.Sum(i => i.Umkm.Price * i.Amount)</td>
+        </tr>
+    }
+
+    <tr>
+        <td>Jumlah</td>
+        <td>@Model.Umkms.Sum(p => p.Pembelians.Sum(i => i.Umkm.Price * i.Amount))</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h4>Donasi</h4>
+
+<table class="table table-bordered table-responsive">
+    <thead>
+    <tr>
+        <td>Title</td>
+        <td>Total</td>
+    </tr>
+    </thead>
+    <tbody>
+     @foreach (PenggalanganDana item in Model.PenggalanganDanas) {
+         <tr>
+             <td>@item.Title</td>
+             <td>@item.Donasis.Sum(i => i.Total)</td>
+         </tr>
+     }
+
+    <tr>
+        <td>Jumlah</td>
+        <td>@Model.PenggalanganDanas.Sum(p => p.Donasis.Sum(d => d.Total))</td>
+    </tr>
+    </tbody>
+</table>

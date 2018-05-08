@@ -1,3 +1,4 @@
+@inject UserManager<ApplicationUser> UserManager
 @model IEnumerable<SIOSR.Models.App.Umkm>
 
 @{
@@ -6,9 +7,12 @@
 
 <h2>Index</h2>
 
+@if (UserManager.GetUserAsync (User).GetAwaiter ().GetResult ().UserType == UserType.Staff) {
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -55,11 +59,64 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
+            @if (UserManager.GetUserAsync (User).GetAwaiter ().GetResult ().UserType == UserType.Staff && item.Status == null) {
+
+            <div>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </div>
+
+            }
+            else if (UserManager.GetUserAsync (User).GetAwaiter ().GetResult ().UserType == UserType.Admin && item.Status == null) {
+
+            <div id="verification-control-@item.Id">
+                <button onclick="approve(@item.Id)" class="btn btn-link">Validasi</button> |
+                <button onclick="reject(@item.Id)" class="btn btn-link">Tolak</button>
+                @Html.AntiForgeryToken()
+            </div>
+
+            }
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+@section Scripts {
+
+    <script>
+
+        function approve (id) {
+            $.ajax({
+                method: 'post',
+                url: '/Umkm/Approve',
+                data: {
+                    Id: id
+                },
+                headers: {
+                    RequestVerificationToken: $("input[name='__RequestVerificationToken']")
+                        .val()
+                },
+                success: () => { $('#verification-control-' + id).hide(); }
+            });
+        }
+
+        function reject (id) {
+            $.ajax({
+                method: 'post',
+                url: '/Umkm/Reject',
+                data: {
+                    Id: id
+                },
+                headers: {
+                    RequestVerificationToken: $("input[name='__RequestVerificationToken']")
+                        .val()
+                },
+                success: () => { $('#verification-control-' + id).hide(); }
+            });
+        }
+
+    </script>
+
+}

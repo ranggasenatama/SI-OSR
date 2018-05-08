@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +15,12 @@ namespace SIOSR.Controllers
     public class MateriController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public MateriController(ApplicationDbContext context)
+        public MateriController(ApplicationDbContext context, IHostingEnvironment hostingEnvironment)
         {
             _context = context;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         // GET: Materi
@@ -54,12 +58,21 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Image")] Materi materi)
+        public async Task<IActionResult> Create([Bind("Title,Description,Id")] Materi materi)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(materi);
                 await _context.SaveChangesAsync();
+                var fileName = string.Format ("{0}/images/media/media/materi/{1}.jpg", _hostingEnvironment.WebRootPath, materi.Id);
+                materi.Image = fileName;
+                Directory.CreateDirectory (Path.GetDirectoryName (fileName));
+
+                foreach (var formFile in Request.Form.Files)
+                    if (formFile.Length > 0)
+                        using (var stream = new FileStream (fileName, FileMode.Create))
+                            await formFile.CopyToAsync (stream);
+                await _context.SaveChangesAsync ();
                 return RedirectToAction(nameof(Index));
             }
             return View(materi);
@@ -86,7 +99,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Image")] Materi materi)
+        public async Task<IActionResult> Edit(int id, [Bind("Title,Description,Id")] Materi materi)
         {
             if (id != materi.Id)
             {
@@ -97,6 +110,14 @@ namespace SIOSR.Controllers
             {
                 try
                 {
+                    var fileName = string.Format ("{0}/images/media/materi/{1}.jpg", _hostingEnvironment.WebRootPath, materi.Id);
+                    Directory.CreateDirectory (Path.GetDirectoryName (fileName));
+
+                    foreach (var formFile in Request.Form.Files)
+                        if (formFile.Length > 0)
+                            using (var stream = new FileStream (fileName, FileMode.Create))
+                                await formFile.CopyToAsync (stream);
+                    materi.Image = fileName;
                     _context.Update(materi);
                     await _context.SaveChangesAsync();
                 }
