@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SIOSR.Data;
+using SIOSR.Models;
 using SIOSR.Models.App;
 
 namespace SIOSR.Controllers
@@ -155,6 +156,24 @@ namespace SIOSR.Controllers
         private bool StaffExists(int id)
         {
             return _context.Staff.Any(e => e.Id == id);
+        }
+
+        private IActionResult SetStatus (int id, UserType userType, Status status) {
+            var staff = _context.Staff.Include (a => a.ApplicationUser).Single (a => a.Id == id);
+            staff.ApplicationUser.UserType = userType;
+            staff.Status = status;
+            _context.Update (staff.ApplicationUser);
+            _context.Update (staff);
+            _context.SaveChanges ();
+            return Ok ();
+        }
+
+        public IActionResult Approve (int id) {
+            return SetStatus (id, UserType.Staff, Status.Approved);
+        }
+
+        public IActionResult Reject (int id) {
+            return SetStatus (id, UserType.User, Status.Rejected);
         }
     }
 }

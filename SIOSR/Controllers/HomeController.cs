@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SIOSR.Data;
 using SIOSR.Models;
+using SIOSR.Models.App;
 
 namespace SIOSR.Controllers {
 
@@ -22,12 +23,12 @@ namespace SIOSR.Controllers {
 
         [AllowAnonymous]
         public IActionResult Event ()
-            => View (_context.Lomba.OrderByDescending (l => l.CreatedAt).ToList ());
+            => View (_context.Lomba.Where (l => l.Status == Status.Approved).OrderByDescending (l => l.CreatedAt).ToList ());
 
         [AllowAnonymous]
         [HttpGet ("Home/Event/{eventId}")]
         public IActionResult EventDetails (int eventId)
-            => View (_context.Lomba.Single (l => l.Id == eventId));
+            => View (_context.Lomba.Single (l => l.Id == eventId && l.Status == Status.Approved));
 
         [AllowAnonymous]
         public IActionResult Contact () {
@@ -43,26 +44,31 @@ namespace SIOSR.Controllers {
 
         [AllowAnonymous]
         public IActionResult Donasi ()
-            => View (_context.PenggalanganDana.ToList ());
+            => View (_context.PenggalanganDana.Where (p => p.Status == Status.Approved).ToList ());
 
         [AllowAnonymous]
         [HttpGet ("Home/Donasi/{donasiId}")]
         public IActionResult DonasiDetails (int donasiId)
-            => View (_context.PenggalanganDana.Single (p => p.Id == donasiId));
+            => View (_context.PenggalanganDana.Include(p => p.Donasis).Single (p => p.Id == donasiId && p.Status == Status.Approved));
 
         [AllowAnonymous]
         public IActionResult Produk ()
-            => View (_context.Umkm.OrderByDescending (u => u.CreatedAt).ToList ());
+            => View (_context.Umkm.Where (u => u.Status == Status.Approved).OrderByDescending (u => u.CreatedAt).ToList ());
 
         [AllowAnonymous]
         [HttpGet ("Home/Produk/{produkId}")]
         public IActionResult ProdukDetails (int produkId)
-            => View (_context.Umkm.Single (u => u.Id == produkId));
+            => View (_context.Umkm.Include (u => u.Pembelians).Single (u => u.Id == produkId && u.Status == Status.Approved));
 
         [AllowAnonymous]
         [HttpGet ("Home/Produk/{produkId}/Purchase")]
         public IActionResult ProdukPurchase (int produkId)
-            => View (_context.Umkm.Single (u => u.Id == produkId));
+            => View (_context.Umkm.Single (u => u.Id == produkId && u.Status == Status.Approved));
+
+        [AllowAnonymous]
+        [HttpGet ("Home/Donasi/{penggalanganId}/Donate")]
+        public IActionResult Donate (int penggalanganId)
+            => View (_context.PenggalanganDana.Single (p => p.Id == penggalanganId && p.Status == Status.Approved));
 
         [AllowAnonymous]
         public IActionResult Absensi ()

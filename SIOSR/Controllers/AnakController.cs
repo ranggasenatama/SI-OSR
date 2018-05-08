@@ -149,5 +149,21 @@ namespace SIOSR.Controllers
         {
             return _context.Anak.Any(e => e.Id == id);
         }
+
+        private IActionResult SetStatus (int id, Status status) {
+            var anak = _context.Anak.Single (a => a.Id == id);
+            anak.Status = status;
+            _context.Update (anak);
+            _context.SaveChanges ();
+            return Ok ();
+        }
+
+        public IActionResult Approve (int id) {
+            return SetStatus (id, Status.Approved);
+        }
+
+        public IActionResult Reject (int id) {
+            return SetStatus (id, Status.Rejected);
+        }
     }
 }

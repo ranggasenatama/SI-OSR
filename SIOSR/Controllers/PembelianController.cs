@@ -57,7 +57,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UmkmId,Name,Phone,Email,Address,Amount,AccountNumber,Shipping,Status,Id")] Pembelian pembelian)
+        public async Task<IActionResult> Create([Bind("UmkmId,Name,Phone,Email,Address,Amount,AccountNumber,Status,Id")] Pembelian pembelian)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace SIOSR.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UmkmId,Name,Phone,Email,Address,Amount,AccountNumber,Shipping,Status,Id")] Pembelian pembelian)
+        public async Task<IActionResult> Edit(int id, [Bind("UmkmId,Name,Phone,Email,Address,Amount,AccountNumber,Status,Id")] Pembelian pembelian)
         {
             if (id != pembelian.Id)
             {
@@ -155,6 +155,22 @@ namespace SIOSR.Controllers
         private bool PembelianExists(int id)
         {
             return _context.Pembelian.Any(e => e.Id == id);
+        }
+
+        private IActionResult SetStatus (int id, Status status) {
+            var pembelian = _context.Pembelian.Single (a => a.Id == id);
+            pembelian.Status = status;
+            _context.Update (pembelian);
+            _context.SaveChanges ();
+            return Ok ();
+        }
+
+        public IActionResult Approve (int id) {
+            return SetStatus (id, Status.Approved);
+        }
+
+        public IActionResult Reject (int id) {
+            return SetStatus (id, Status.Rejected);
         }
     }
 }
